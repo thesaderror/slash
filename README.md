@@ -27,6 +27,12 @@ Slash is **Automated Osint Tool** that allows you to **OSINT** people by their u
 |__|__________________________________________________________|
 ```
 
+## What's new in the X version ?
+- [x] Speed dramatically increased
+- [x] Export the last result to JSON file (results.json)
+- [ ] Use as external module (TODO)
+
+
 ## Installation
 
 ```

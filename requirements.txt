@@ -4,3 +4,4 @@ pyfiglet
 typer
 instagramy
 bs4
+asyncio

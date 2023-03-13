@@ -24,16 +24,16 @@ import time
 
 def gethelp():
     print(f"""{symbol.help_found}:
-    {color.redbg}Slash{color.reset} Includes : 
+    {color.redbg}SlashX{color.reset} Includes : 
         {color.bold}paste{color.reset} search
         {color.bold}social media{color.reset} search
         {color.bold}forum{color.reset} search
         {color.bold}leak check{color.reset}
 
     Example :
-    {color.graybg}{color.red}{color.bold}${color.reset}{color.graybg} python slash.py redc86{color.reset}
+    {color.graybg}{color.red}{color.bold}${color.reset}{color.graybg} python slash.py nuked88{color.reset}
     {color.graybg}{color.red}{color.bold}${color.reset}{color.graybg} python slash.py target@gmail.com{color.reset}""")
-    print(resultcollector.get_results())
+ 
 
 def _username(username):
     print(f"{symbol.log} {symbol.slash} starting...")

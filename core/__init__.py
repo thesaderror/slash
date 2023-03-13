@@ -42,7 +42,7 @@ class symbol:
     slash = f"""{color.redbg}{color.bold}Slash{color.reset}"""
 
 class banner:
-    slash= f'{color.redbg}{color.bold}{pyfiglet.figlet_format(" Slash ",font="slant")}{color.reset}'
+    slash= f'{color.redbg}{color.bold}{pyfiglet.figlet_format(" SlashX ",font="slant")}{color.reset}'
 
 
 def clear():

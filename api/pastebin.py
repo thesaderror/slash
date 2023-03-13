@@ -1,7 +1,7 @@
 import requests 
 import json 
 import time 
-
+from core.ResultsCollector import resultcollector
 from core import (
     banner,
     color,
@@ -47,3 +47,5 @@ def search(value):
         print(out)
     print(f"{symbol.log} Pastebin search finished! {color.red}{len(gathered.links)}{color.reset} results found for {color.bold}{color.orange}{value}{color.reset}.")
     #print(gathered.includes)
+    resultcollector.add_result("pastebin",gathered.links)
+    

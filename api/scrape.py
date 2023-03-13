@@ -1,6 +1,5 @@
 from core.scrape import *
 from profiles.autoimport import *
-
 def split_extra(name,txt):
     out = ""
     if(name=="Name"):
@@ -32,14 +31,14 @@ def scrapefunc(_scrape,url,name,source):
         elif(scrape_cname=="a"):
             scrape_text = ahead(source, _scrape[f"{sc}"]["class"])                                
             if(scrape_text!=None):
-                scrape_text = split_extra(scrape_name,scrape_text)
+                scrape_text = split_extra(scrape_name,scrape_text)            
                 parse(scrape_name,scrape_text,name,url)
                 scraped+=(f"""[{color.green}{color.underline}{name}{color.reset}] {color.bold}{color.blue}{scrape_name}{color.reset} : {color.green}{color.underline}{scrape_text}{color.reset}\n""")
 
         elif(scrape_cname=="div"):
             scrape_text = div(source, _scrape[f"{sc}"]["class"])                                
             if(scrape_text!=None):
-                scrape_text = split_extra(scrape_name,scrape_text)
+                scrape_text = split_extra(scrape_name,scrape_text)               
                 parse(scrape_name,scrape_text,name,url)
                 scraped+=(f"""[{color.green}{color.underline}{name}{color.reset}] {color.bold}{color.blue}{scrape_name}{color.reset} : {color.green}{color.underline}{scrape_text}{color.reset}\n""")
         
@@ -47,7 +46,7 @@ def scrapefunc(_scrape,url,name,source):
 
             scrape_text = h1(source, _scrape[f"{sc}"]["class"])                                
             if(scrape_text!=None):
-                scrape_text = split_extra(scrape_name,scrape_text)
+                scrape_text = split_extra(scrape_name,scrape_text)           
                 parse(scrape_name,scrape_text,name,url)
                 scraped+=(f"""[{color.green}{color.underline}{name}{color.reset}] {color.bold}{color.blue}{scrape_name}{color.reset} : {color.green}{color.underline}{scrape_text}{color.reset}\n""")
 
@@ -55,14 +54,14 @@ def scrapefunc(_scrape,url,name,source):
 
             scrape_text = phead(source, _scrape[f"{sc}"]["class"])                                
             if(scrape_text!=None):
-                scrape_text = split_extra(scrape_name,scrape_text)
+                scrape_text = split_extra(scrape_name,scrape_text)           
                 parse(scrape_name,scrape_text,name,url)
                 scraped+=(f"""[{color.green}{color.underline}{name}{color.reset}] {color.bold}{color.blue}{scrape_name}{color.reset} : {color.green}{color.underline}{scrape_text}{color.reset}\n""")
 
         elif(scrape_cname=="section"):
             scrape_text = section(source, _scrape[f"{sc}"]["class"])                                
             if(scrape_text!=None):
-                scrape_text = split_extra(scrape_name,scrape_text)
+                scrape_text = split_extra(scrape_name,scrape_text)           
                 parse(scrape_name,scrape_text,name,url)
                 scraped+=(f"""[{color.green}{color.underline}{name}{color.reset}] {color.bold}{color.blue}{scrape_name}{color.reset} : {color.green}{color.underline}{scrape_text}{color.reset}\n""")
     return scraped

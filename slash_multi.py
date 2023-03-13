@@ -1,6 +1,7 @@
 import typer
 from os import system
 import time
+
 from profiles import profiles
 from forums import forums 
 
@@ -18,9 +19,8 @@ from api.pastebin import search as pastesearch
 from api.github import search as githubsearch
 from api.extract import extract as extract 
 from api.leakcheck import check as leakcheck 
-from core.ResultsCollector import resultcollector
 
-import time
+
 
 def gethelp():
     print(f"""{symbol.help_found}:
@@ -33,71 +33,27 @@ def gethelp():
     Example :
     {color.graybg}{color.red}{color.bold}${color.reset}{color.graybg} python slash.py redc86{color.reset}
     {color.graybg}{color.red}{color.bold}${color.reset}{color.graybg} python slash.py target@gmail.com{color.reset}""")
-    print(resultcollector.get_results())
 
 def _username(username):
     print(f"{symbol.log} {symbol.slash} starting...")
     print(f"{symbol.log} Username [{color.green}{color.bold}{username}{color.reset}] succesfully setted.")
-    try:
-        start = time.time()
-
-        # Thread list
-        threads = [
-            threading.Thread(target=profiles.run, args=(username,)),
-            threading.Thread(target=forums.run, args=(username,)),
-            threading.Thread(target=pastesearch, args=(username,)),
-            threading.Thread(target=githubsearch, args=(username,))
-        ]
-
-        # Start threads
-        for t in threads:
-            t.start()
-
-        # Wait for threads to finish
-        for t in threads:
-            t.join()
-
-        # Save results
-        resultcollector.save_results()
-
-        end = time.time()
-        print(f"{symbol.log} {symbol.slash} finished in {end-start} seconds.")
-
-    except Exception as e:
-        pass
-
-
+    threading.Thread(target=profiles.run,args=(username,)).start()
+    threading.Thread(target=forums.run,args=(username,)).start()
+    time.sleep(5)
+    try:threading.Thread(target=pastesearch,args=(username,)).start()
+    except:pass
+    try:threading.Thread(target=githubsearch,args=(username,)).start()
+    except:pass
 
 def _mail(mail_adress):
     print(f"{symbol.log} {symbol.slash} starting...")
     print(f"{symbol.log} Mail adress [{color.green}{color.bold}{mail_adress}{color.reset}] succesfully setted.")
-
-    start = time.time()
-    # Thread list
-    threads = [
-        threading.Thread(target=leakcheck, args=(mail_adress,)),
-        threading.Thread(target=pastesearch, args=(mail_adress,)),
-        threading.Thread(target=githubsearch, args=(mail_adress,))
-    ]
-
-    # Start threads
-    for t in threads:
-        t.start()
-
-    # Wait for threads to finish
-    for t in threads:
-        t.join()
-
-    # Save results
-    resultcollector.save_results()
     
-    end = time.time()
-    print(f"{symbol.log} {symbol.slash} finished in {end-start} seconds.")
+    threading.Thread(target=leakcheck,args=(mail_adress,)).start()
+    time.sleep(3)
+    threading.Thread(target=pastesearch,args=(mail_adress,)).start()
+    threading.Thread(target=githubsearch,args=(mail_adress,)).start()
 
-
-
-
-    
 
     
 def _start(value : str):
@@ -110,13 +66,11 @@ def _start(value : str):
         pass
     else:
         _username(value)
-   
+
 if __name__ == "__main__":
     clear()
     print(banner.slash)
+    #_start()
     typer.run(_start)
-  
-
-
 
 # By redc86...

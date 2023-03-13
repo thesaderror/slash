@@ -12,7 +12,7 @@ from core import (
 from api.extract import *
 from api.leakcheck import check as leak 
 from api.leakcheck import check as leakcheck 
-
+from core.ResultsCollector import resultcollector
 import json
 from core.scrape import *
 import sys
@@ -54,13 +54,17 @@ def parse(key,value,from_name,from_url):
         gathered.educations.append({"name":from_name,"source":from_url,"value":value})
     elif(key=="Bio"):
         gathered.bios.append(value)
-        threading.Thread(target=func_extract,args=(from_name,from_url,value,)).start()
+        threading.Thread(target=func_extract,args=(from_name,from_url,value)).start()
 
     elif(key=="Website"):
         gathered.linked_urls.append({"name":from_name,"source":from_url,"value":value})
     elif(key=="User Info"):
         gathered.user_info.append(value)
         gathered.user_infos.append({"name":from_name,"source":from_url,"value":value})
+
+    #resultcollector.add_result(["parse1",f"profiles: {gathered.locations}, {gathered.names}, {gathered.educations}, {gathered.bios}, {gathered.linked_urls}, {gathered.user_infos}"])
+    
+    return gathered
 
 def get_db():
     with open(config.socmint,"r") as f:
@@ -89,6 +93,7 @@ def func_extract(from_name,from_url,value):
         print(e)
 
 def parse(key,value,from_name,from_url):
+    result = {}
     if(key=="Location"):
         #print(value)
         gathered.locations.append({"name":from_name,"source":from_url,"value":value})
@@ -99,7 +104,7 @@ def parse(key,value,from_name,from_url):
         gathered.educations.append({"name":from_name,"source":from_url,"value":value})
     elif(key=="Bio"):
         gathered.bios.append(value)
-        threading.Thread(target=func_extract,args=(from_name,from_url,value,)).start()
+        threading.Thread(target=func_extract,args=(from_name,from_url,value)).start()
 
     elif(key=="Website"):
         gathered.linked_urls.append({"name":from_name,"source":from_url,"value":value})
@@ -107,3 +112,6 @@ def parse(key,value,from_name,from_url):
     elif(key=="User Info"):
         gathered.user_info.append(value)
         gathered.user_infos.append({"name":from_name,"source":from_url,"value":value})
+
+    #resultcollector.add_result(["parse2",f"profiles: {gathered.locations}, {gathered.names}, {gathered.educations}, {gathered.bios}, {gathered.linked_urls}, {gathered.user_infos}"])
+    return [gathered, result]

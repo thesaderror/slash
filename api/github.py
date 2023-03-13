@@ -1,7 +1,7 @@
 import requests 
 import json 
 import time 
-
+from core.ResultsCollector import resultcollector
 from core import (
     banner,
     color,
@@ -31,11 +31,14 @@ def search(value):
             #time.sleep(4)
             try:
                 out+=f"     {color.reset}[{color.whitebg}{data[i]['id']}{color.reset}] {color.bold}URL{color.reset} : [{color.red}{color.underline}https://github.com/{data[i]['url'].split('https://api.github.com/repos/')[1]}{color.reset}] {color.bold}Title{color.reset} : {color.reset}[{color.include}{data[i]['title']}{color.reset}]\n"
-                gathered.links.append({data[i]['id']:data[i]['url']});
+                gathered.links.append({str(data[i]['id']):data[i]['url']});
             except:
                 pass
     if(len(gathered.links)!=0):
         print(out)
     
     print(f"{symbol.log} Github commit search finished! {color.red}{len(gathered.links)}{color.reset} results found for {color.bold}{color.orange}{value}{color.reset}.")
-    #print(gathered.includes)
+    
+    resultcollector.add_result("github",gathered.links)
+    #return gathered.links
+

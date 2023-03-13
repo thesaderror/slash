@@ -1,7 +1,7 @@
 from profiles.autoimport import *
 from api.scrape import *
 import threading
-
+from core.ResultsCollector import resultcollector
 def ozel_scrape(url,username):
     try:
         if(url.startswith("https://www.instagram.com/")):
@@ -10,8 +10,12 @@ def ozel_scrape(url,username):
             func_extract("instagram", url, f"{email} {phone_number}")
             #print(user.biography)
             parse("Bio",user.biography,"instagram",url)
+            resultcollector.add_result(["instagram",user.biography])
     except:
         pass
+    
+
+
 def notapi(username,dct):
     url = (dct["url"]).format(username)
     desc = dct["desc"]
@@ -26,7 +30,7 @@ def notapi(username,dct):
             r = urlopen(url,timeout=config.tmout)
             if(r.getcode()!=nf):
                 print((config.notapi_fn).format(symbol.social_found,f"{color.red}{color.bold}social/{color.green}{color.bold}{name}{color.reset}",htext))
-                threading.Thread(target=ozel_scrape,args=(url,username,)).start()
+                threading.Thread(target=ozel_scrape,args=(url,username)).start()
                 return {name:url}
             else:
                 pass
@@ -39,7 +43,7 @@ def notapi(username,dct):
 
             if(not nf in source):
                 print((config.notapi_fn).format(symbol.social_found,f"{color.red}{color.bold}social/{color.green}{color.bold}{name}{color.reset}",htext))
-                threading.Thread(target=ozel_scrape,args=(url,username,)).start()
+                threading.Thread(target=ozel_scrape,args=(url,username)).start()
                 return {name:url}
             else:
                 pass
@@ -63,7 +67,7 @@ def notapi(username,dct):
                 if(scraped != ""):
                     print()
                     print(scraped)
-                threading.Thread(target=ozel_scrape,args=(url,username,)).start()
+                threading.Thread(target=ozel_scrape,args=(url,username)).start()
                 return {name:url}
 
         else:
@@ -79,5 +83,5 @@ def notapi(username,dct):
                 if(scraped != ""):
                     print()
                     print(scraped)
-                threading.Thread(target=ozel_scrape,args=(url,username,)).start()
+                threading.Thread(target=ozel_scrape,args=(url,username)).start()
                 return {name:url}

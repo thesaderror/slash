@@ -1,8 +1,12 @@
 from forums.auto import *
+from core.ResultsCollector import resultcollector
+import asyncio
 
 class gathered:
-    username = ""
+    username = []
     profiles = []
+
+
 
 def forums_check(dct):
     username = gathered.username
@@ -22,7 +26,7 @@ def forums_check(dct):
 
         if(check.format(username) in source):
             print(f"{symbol.forum_found} {color.blue}{color.bold}forum/{color.green}{color.bold}{name}{color.reset} : {htext}{color.reset}")
-            gathered.profiles({name:url})
+            gathered.profiles.append({name:url})
 
     elif(check_code=="2"):
         req = urlopen(url,timeout=4)
@@ -34,8 +38,8 @@ def forums_check(dct):
 
         if(st!=check):
             print(f"{symbol.forum_found} {color.blue}{color.bold}forum/{color.green}{color.bold}{name}{color.reset} : {htext}{color.reset}")
-            gathered.profiles({name:url})
-            print({name:url})
+            gathered.profiles.append({name:url})
+            #print({name:url})
 
     elif(check_code=="3"):
         req = urlopen(url,timeout=40)
@@ -47,22 +51,31 @@ def forums_check(dct):
         #print(highlight(text=source, selected=check))
         if(not check in source):
             print(f"{symbol.forum_found} {color.blue}{color.bold}forum/{color.green}{color.bold}{name}{color.reset} : {htext}{color.reset}")
-            gathered.profiles({name:url})
+            gathered.profiles.append([name,url])
+
     
 
-def focmint(username):
-    db = get_db()["forums"]
-    ldb = len(db)
 
-    for i in range(0,ldb):
+
+async def focmint(username):
+    db = get_db()["forums"]
+    tasks = []
+    
+    for i in range(len(db)):
         try:
-            forums_check(db[i])
+            tasks.append(asyncio.create_task(forums_check(db[i])))
         except Exception as e:
-            pass#;print(e)
+            pass
+    await asyncio.gather(*tasks)
+
+
+
+
 
 class forums:
     def run(username):
         print(f"{symbol.log} Searching {color.bold}{color.orange}{username}{color.reset} on {color.bold}Forums{color.reset}...")
         gathered.username = username
-        focmint(username)
+        asyncio.run(focmint(username))
+        resultcollector.add_result("forums",gathered.profiles)
         print(f"{symbol.log} {color.bold}Forum Search{color.reset} finished. {color.bold}{color.red}{len(gathered.profiles)}{color.reset} results found...")

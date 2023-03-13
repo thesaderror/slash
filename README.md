@@ -1,8 +1,10 @@
-# [Slash](https://github.com/theahmadov/slash)
+# [SlashX](https://github.com/nuked88/slashx)
 
-Slash is **Automated Osint Tool** that allows you to **OSINT** people by their username.
 
-### Slash OSINT Modules :
+
+SlashX is **Automated Osint Tool** that allows you to **OSINT** people by their username.
+
+### SlashX OSINT Modules :
 ```python
 |__Checker                                                    |
 |  |                                                          |
@@ -36,7 +38,7 @@ Slash is **Automated Osint Tool** that allows you to **OSINT** people by their u
 ## Installation
 
 ```
-git clone https://github.com/theahmadov/slash
+git clone https://github.com/nuked88/slashx
 cd slash
 pip install -r requirements.txt
 python slash.py help
@@ -49,17 +51,18 @@ python slash.py help
 
 * Example : 
 ```
-python slash.py theahmadov
+python slash.py nuked88
 ```
 <h1 align="center">
-  <img src="https://raw.githubusercontent.com/theahmadov/slash/main/images/1.png">
+  <img src="https://raw.githubusercontent.com/nuked88/slashx/main/images/1.png">
 </h1>
 <h1 align="center">
-  <img src="https://github.com/theahmadov/slash/blob/main/images/2.png?raw=true">
+  <img src="https://raw.githubusercontent.com/nuked88/slashx/main/images/2.png">
 </h1>
 
 ### Credits
+Original Author: [theahmadov](https://github.com/theahmadov/slash)
 Links of social.json : [sherlock-project](https://github.com/sherlock-project/sherlock/)
 
 
-![](https://visitor-badge.glitch.me/badge?page_id=thesaderror.slash)
+![](https://visitor-badge.glitch.me/badge?page_id=nuked88.slashx)

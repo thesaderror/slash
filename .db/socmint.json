@@ -2084,7 +2084,7 @@
     "156" : {
         "name" : "weheartit",
         "desc" : "",
-        "type" : "notapi",
+        "type" : "ignored",
         "url"  : "https://weheartit.com/{}",
         "messages" : {
             "notfound" : "Oops! You've landed on a moving target!"

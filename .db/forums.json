@@ -71,10 +71,10 @@
         },
 
         {
-            "name" : "ardunio",
-            "url" : "https://create.arduino.cc/projecthub/{}",
-            "check_code" : "2",
-            "check" : 404
+            "name" : "arduino",
+            "url" : "https://projecthub.arduino.cc/{}",
+            "check_code" : "3",
+            "check" : "Oh no! Nothing to discover here."
         },
 
         {
